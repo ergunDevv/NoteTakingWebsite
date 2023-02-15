@@ -24,7 +24,7 @@
         <div class="cards-container">
           <div
             v-for="note in notes"
-            :key="note.id"
+            v-bind:key="note.id "
             class="card"
             :style="{ backgroundColor: note.backgroundColor }"
           >
@@ -39,8 +39,9 @@
 
 <script setup>
 import { ref } from "vue";
+import uniqid from 'uniqid';
 
-const newNote = ref("hello world");
+const newNote = ref("");
 const showModal = ref(false);
 const notes = ref([]);
 const errorMessage = ref("");
@@ -49,18 +50,18 @@ function getRandomColor() {
   return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
 }
 const addNotes = () => {
-  if (newNote.value.length < 10) {
-    return errorMessage.value="Note needs to be 10 characters or more.";
-  }
+  // if (newNote.value.length < 10) {
+  //   return errorMessage.value="Note needs to be 10 characters or more.";
+  // }
+  console.log(notes,"note:",newNote)
   notes.value.push({
-    id: Math.floor(Math.random * 1000000),
+    id: uniqid(),
     text: newNote.value,
     date: new Date(),
     backgroundColor: getRandomColor(),
   });
   showModal.value = false;
   newNote.value = "";
-  errorMessage.value = "";
 };
 </script>
 
