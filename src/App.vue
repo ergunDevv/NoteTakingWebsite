@@ -4,31 +4,32 @@
       <div v-if="showModal" class="overlay">
         <div class="modal">
           <textarea
-            v-model="newNote"
+            v-model.trim="newNote"
             name="note"
             id="note"
             cols="30"
             rows="10"
           ></textarea>
+          <p v-if="errorMessage">{{errorMessage}}</p>
           <button @click="addNotes">Add Note</button>
           <button @click="showModal = false" class="close">Close</button>
         </div>
       </div>
       <div class="container">
         <header>
-          <h1>Notes {{ showModal }}</h1>
+          <h1>Notes</h1>
 
           <button @click="showModal = true">+</button>
         </header>
         <div class="cards-container">
           <div
             v-for="note in notes"
-            v-bind:key="note.text in notes"
+            :key="note.id"
             class="card"
-            :style="{backgroundColor:note.backgroundColor}"
+            :style="{ backgroundColor: note.backgroundColor }"
           >
             <p class="main-text">{{ note.text }}</p>
-            <p class="date">{{note.date.toLocaleDateString('en-US')}}</p>
+            <p class="date">{{ note.date.toLocaleDateString("en-US") }}</p>
           </div>
         </div>
       </div>
@@ -42,11 +43,15 @@ import { ref } from "vue";
 const newNote = ref("hello world");
 const showModal = ref(false);
 const notes = ref([]);
+const errorMessage = ref("");
 
 function getRandomColor() {
   return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
 }
 const addNotes = () => {
+  if (newNote.value.length < 10) {
+    return errorMessage.value="Note needs to be 10 characters or more.";
+  }
   notes.value.push({
     id: Math.floor(Math.random * 1000000),
     text: newNote.value,
@@ -55,6 +60,7 @@ const addNotes = () => {
   });
   showModal.value = false;
   newNote.value = "";
+  errorMessage.value = "";
 };
 </script>
 
@@ -141,5 +147,8 @@ header button {
 .modal .close {
   background-color: rgb(193, 15, 15);
   margin-top: 7px;
+}
+.modal p {
+  color : rgb(193, 15, 15);
 }
 </style>
