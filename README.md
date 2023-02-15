@@ -1,24 +1,11 @@
-# note-taking
+Note taking website with vue3.js
 
-## Project setup
-```
-npm install
-```
+Live at : https://note-taking-webs.netlify.app
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+In website photos : 
 
-### Compiles and minifies for production
-```
-npm run build
-```
+![note taking](https://user-images.githubusercontent.com/89292621/219079963-25b0841e-dd0c-4cb9-990f-a3d3459625a6.png)
 
-### Lints and fixes files
-```
-npm run lint
-```
+![note taking2](https://user-images.githubusercontent.com/89292621/219080232-3a3b81d0-d88a-447e-b4dc-fc5171eff4f7.png)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
