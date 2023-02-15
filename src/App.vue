@@ -3,14 +3,15 @@
       <main>
         <div v-if="showModal" class="overlay">
           <div class="modal">
-              <textarea name="note" id="note" cols="30" rows="10"></textarea>
-              <button>Add Note</button>
+              <textarea v-model="newNote" name="note" id="note" cols="30" rows="10"></textarea>
+              <button @click="addNotes">Add Note</button>
               <button @click="showModal=false" class="close">Close</button>
           </div>
         </div>
         <div class="container">
           <header>
             <h1>Notes {{showModal}}</h1>
+            
             <button @click="showModal=true">+</button>
           </header>
           <div class="cards-container">
@@ -32,8 +33,24 @@
 <script setup>
 import { ref } from 'vue';
 
+const newNote = ref("hello world");
 const showModal=ref(false);
+const notes=  ref([]);
 
+function getRandomColor() {
+  return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+  
+}
+const addNotes =()=>{
+  notes.value.push({
+    id:Math.floor(Math.random*1000000),
+    text:newNote.value,
+    date:new Date(),
+    backgroundColor:getRandomColor(),
+  });
+  showModal.value=false;
+  newNote.value="";
+}
 
 
 </script>
